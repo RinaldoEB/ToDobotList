@@ -5,10 +5,10 @@ const loginPage = () => {
     const [newName, setNewName] = useState("")
     const [newEmail, setNewEmail] = useState("")
     const [newPassword, setNewPassword] = useState("")
-    const [name,setName] = useState("")
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const [error, setError] = useState("")
+    const [buttonRegister,setButtonRegister] = useState(false)
     const navigate = useNavigate()
 
     const handleLogin = async(e) => {
@@ -66,6 +66,12 @@ const loginPage = () => {
        setNewEmail("")
        setNewPassword("")
     }
+
+    const handleButtonRegister = () => {
+        setButtonRegister(prev => !prev)
+    }
+
+    
     
     return (
         <>
@@ -91,35 +97,36 @@ const loginPage = () => {
                     <input type="submit" />
                 </form>
 
-                <button>U Dont Have Account ?</button>
+                <button type="button" onClick={handleButtonRegister}>
+                    {buttonRegister ? "Back to Login" : "U dont have account ?"}
+                </button>
+                {buttonRegister && (
 
-                <form onSubmit={handleRegister}>
-                    {error && <p style={{ color : "red" }}>{error}</p>}
-                    <h1>REGISTER</h1>
+                    <form onSubmit={handleRegister}>
+                        {error && <p style={{ color : "red" }}>{error}</p>}
+                        <h1>REGISTER</h1>
+                        <input type="text" 
+                        placeholder="name" 
+                        value={newName}
+                        onChange={e => setNewName(e.target.value)}
+                        required
+                        />
+                        <input type="email" 
+                        placeholder="Email" 
+                        value={newEmail}
+                        onChange={e => setNewEmail(e.target.value)}
+                        required
+                        />
+                        <input type="password" 
+                        placeholder="password"
+                        value={newPassword}
+                        onChange={e => setNewPassword(e.target.value)}
+                        required
+                        />
+                        <input type="submit" />
+                    </form>
+                )}
 
-                    <input type="text" 
-                    placeholder="name" 
-                    value={newName}
-                    onChange={e => setNewName(e.target.value)}
-                    required
-                    />
-
-                    <input type="email" 
-                    placeholder="Email" 
-                    value={newEmail}
-                    onChange={e => setNewEmail(e.target.value)}
-                    required
-                    />
-
-                    <input type="password" 
-                    placeholder="password"
-                    value={newPassword}
-                    onChange={e => setNewPassword(e.target.value)}
-                    required
-                    />
-
-                    <input type="submit" />
-                </form>
             </div>
         </>
     )
