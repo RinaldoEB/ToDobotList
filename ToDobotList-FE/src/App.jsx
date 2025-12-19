@@ -5,6 +5,8 @@ function App() {
   const navigate = useNavigate()
   const [nama,setNama] = useState("")
   const [title,setTitle] = useState("")
+  const [newNama,setNewNama] = useState("")
+  const [newContent,setNewContent] = useState("")
   const [content,setContent] = useState("")
   const [notes,setNote] = useState([])
   const token = localStorage.getItem("token")
@@ -32,7 +34,11 @@ function App() {
       title : title.trim(),
       content : content.trim()
     }
-
+    
+    if(!title.trim() || !content.trim()) {
+      alert("tidak boleh kosong")
+      return
+    }
     const response = await fetch(url, {
       method : "POST",
       headers : {
@@ -47,9 +53,6 @@ function App() {
       alert(data.message)
       return
     }
-    if(!title.trim() || !content.trim()) {
-      return alert("tidak boleh kosong")
-    }
     
     
     setNote(prev => [...prev,data.data])
@@ -57,6 +60,41 @@ function App() {
     setContent("")
     alert("data berhasil ditambah")
   }
+
+  const handleEditNote = async (e) => {
+    e.preventDefault()
+    
+    const body = {
+      title : title.trim(),
+      content : content.trim()
+    }
+
+    if(!title.trim() || !content.trim()) {
+      alert("tidak ada content !")
+      return
+    }
+
+    const url = "http://localhost:3007/api/note"
+    const res = await fetch(url,{
+      method : "POST",
+      headers : {
+        Authorization : `Bearer ${token}`,
+        "Content-Type" : "application/json"
+      },
+      body : JSON.stringify(body)
+    })
+
+    const data = await res.json(data.data)
+    if(!res.ok) {
+      alert(data.message)
+      return
+    }
+
+  }
+
+
+
+
 
   useEffect(()=> {  
     if(!token) {
@@ -76,7 +114,8 @@ function App() {
             <ul key={note.id}>
               <li>
                 title : {note.title} <br />
-                content : {note.content}
+                content : {note.content} <br />
+                <button className='border border-indigo-9'>Edit</button>
               </li>
             </ul>
         ))}
@@ -90,6 +129,7 @@ function App() {
           </form>
         </div>
       </div>
+
     </>
   )
 }
