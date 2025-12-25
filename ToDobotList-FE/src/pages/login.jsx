@@ -169,22 +169,6 @@ const LoginPage = () => {
                                 />
                             </div>
 
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center">
-                                    <input 
-                                        type="checkbox" 
-                                        id="remember"
-                                        className="h-4 w-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
-                                    />
-                                    <label htmlFor="remember" className="ml-2 text-sm text-gray-600">
-                                        Remember me
-                                    </label>
-                                </div>
-                                <a href="" className="text-sm text-blue-600 hover:text-blue-800">
-                                    Forgot password?
-                                </a>
-                            </div>
-
                             <button 
                                 type="submit"
                                 disabled={isLoading}
@@ -223,11 +207,6 @@ const LoginPage = () => {
                             >
                                 Create New Account
                             </button>
-                        </div>
-
-                        {/* Terms */}
-                        <div className="mt-8 text-center text-xs text-gray-500">
-                            <p>By continuing, you agree to our <a href="#" className="text-blue-600 hover:underline">Terms</a> and <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>.</p>
                         </div>
                     </div>
                 </div>

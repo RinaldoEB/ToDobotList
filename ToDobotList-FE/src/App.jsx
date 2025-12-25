@@ -29,12 +29,19 @@ function App() {
         },
       })
       const data = await response.json();
+
+      if(response.status === 401 || response.status === 403) {
+        localStorage.removeItem("name")
+        localStorage.removeItem("token")
+        useNavigate("/")
+      }
       setNote(data.data)
     } catch (error) {
       console.error("Error fetching notes:", error)
     } finally {
       setIsLoading(false)
     }
+
   }
 
   const handleAddNote = async (e) => {
